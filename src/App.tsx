@@ -1,13 +1,13 @@
-import { Button } from "./components/ui/button";
-import { Camera } from "lucide-react";
+import { Routes, Route } from "react-router-dom";
+import ListProfessor from "./pages/ListProfessor";
 
 function App() {
 	return (
-		<div>
-			TailwindCSS 적용
-			<Button type="button">버튼</Button>
-			<Camera />
-		</div>
+		<>
+			<Routes>
+				<Route path="/listp" element={<ListProfessor />} />
+			</Routes>
+		</>
 	);
 }
 
