@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Footer from "@/components/Footer"
 
-export default function Component() {
+export default function ListProfessor() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b px-6 py-4 flex items-center justify-between w-full">
+      <header className="bg-white border-b px-8 py-4 flex items-center justify-between w-full">
         <div className="flex items-center space-x-4">
           <div className="w-10 h-10 bg-gray-200 rounded"></div>
         </div>
@@ -21,7 +21,7 @@ export default function Component() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl w-full mx-auto px-6 py-10 flex-grow">
+      <main className="w-full px-8 py-10 flex-grow">
         {/* Title Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">나의 강의 리스트</h1>
@@ -29,11 +29,11 @@ export default function Component() {
         </div>
 
         {/* Search Bar */}
-        <div className="relative mb-12">
+        <div className="relative mb-12 max-w-4xl mx-auto">
           <Input
             type="text"
             placeholder="강의명을 입력하세요"
-            className="w-full max-w-2xl mx-auto block pl-5 pr-12 py-6 text-lg rounded-full border-gray-300"
+            className="w-full pl-5 pr-12 py-6 text-lg rounded-full border-gray-300"
           />
           <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" />
         </div>
@@ -61,16 +61,16 @@ export default function Component() {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="bg-white rounded-lg p-5 shadow-sm border flex items-center justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="bg-white rounded-lg p-6 shadow-sm border flex items-center justify-between">
               <span className="text-lg text-gray-700">수업 이름 (강의실 이름)</span>
-              <Button size="sm" className="bg-gray-600 hover:bg-gray-700 px-6">
+              <Button size="sm" className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2">
                 강의
               </Button>
             </div>
-            <div className="bg-white rounded-lg p-5 shadow-sm border flex items-center justify-between">
+            <div className="bg-white rounded-lg p-6 shadow-sm border flex items-center justify-between">
               <span className="text-lg text-gray-700">수업 이름 (강의실 이름)</span>
-              <Button size="sm" className="bg-gray-600 hover:bg-gray-700 px-6">
+              <Button size="sm" className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2">
                 강의
               </Button>
             </div>
@@ -86,23 +86,21 @@ export default function Component() {
 
           {/* Filter Tabs */}
           <div className="flex space-x-3 mb-8">
-            <Button variant="default" size="sm" className="bg-gray-600 hover:bg-gray-700 px-5 py-2 text-base">
-              최신 등록 순
-            </Button>
-            <Button variant="outline" size="sm" className="px-5 py-2 text-base">
+            <Button className="bg-gray-700 hover:bg-gray-800 text-white px-6 py-2 text-base">최신 등록 순</Button>
+            <Button variant="outline" className="px-6 py-2 text-base border-gray-300 text-gray-700 hover:bg-gray-50">
               질문 많은 순
             </Button>
-            <Button variant="outline" size="sm" className="px-5 py-2 text-base">
+            <Button variant="outline" className="px-6 py-2 text-base border-gray-300 text-gray-700 hover:bg-gray-50">
               이름 순 (가나다)
             </Button>
           </div>
 
           {/* Lecture List */}
-          <div className="space-y-4 mb-10">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="bg-white rounded-lg p-5 shadow-sm border flex items-center justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 mb-10">
+            {Array.from({ length: 10 }).map((_, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-sm border flex items-center justify-between">
                 <span className="text-lg text-gray-700">수업 이름 (강의실 이름)</span>
-                <Button size="sm" className="bg-gray-600 hover:bg-gray-700 px-6">
+                <Button size="sm" className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2">
                   강의
                 </Button>
               </div>
@@ -111,7 +109,10 @@ export default function Component() {
 
           {/* More Button */}
           <div className="text-center">
-            <Button variant="outline" className="flex items-center space-x-2 px-6 py-2 text-base">
+            <Button
+              variant="outline"
+              className="flex items-center space-x-2 px-6 py-2 text-base mx-auto border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
               <span>더보기</span>
               <ChevronDown className="w-5 h-5" />
             </Button>
