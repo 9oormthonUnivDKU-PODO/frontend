@@ -61,22 +61,20 @@ export default function LiveProfessor() {
 
     return (
         <div className="absolute top-0 left-0 w-full min-h-screen flex flex-col bg-[#F2F6F9]">
-            {/* Header */}
             <header className="bg-[#F2F6F9] px-8 py-4 w-full">
                 <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-2">
                         <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
                     </div>
 
-                    {/* 오른쪽 버튼들 */}
-                    <div className="flex items-center gap-1"> {/* gap을 조금 줄여도 좋습니다. */}
+                    <div className="flex items-center gap-1">
                         <Button variant="ghost" size="icon">
                             <img src="/bellIcon.png" alt="bell" className="h-6 w-6" />
                         </Button>
                         <Button variant="ghost" size="icon">
                             <img src="/settingIcon.png" alt="setting" className="h-6 w-6" />
                         </Button>
-                        <Button variant="ghost" className="p-3 h-auto"> {/* 로그아웃은 아이콘 크기가 다르므로 size="icon" 대신 직접 스타일링 */}
+                        <Button variant="ghost" className="p-3 h-auto">
                             <img src="/logoutIcon.png" alt="logout" className="h-8 w-auto" />
                         </Button>
                     </div>
@@ -85,23 +83,19 @@ export default function LiveProfessor() {
             </header>
 
 
-            {/* Toggle Button */}
             <div className="w-full px-8 py-6">
                 <Button onClick={handleToggleView} className="mb-4 px-6 py-2 text-base">
                     {showWithQuestions ? "질문 없는 상태 보기" : "질문 있는 상태 보기"}
                 </Button>
             </div>
 
-            {/* Main Content */}
-            <main className="w-full max-w-full flex-1"> {/* flex-1 추가로 내용이 적을 때도 하단 입력창이 밀리지 않도록 함 */}
+            <main className="w-full max-w-full flex-1">
                 {qas.length === 0 ? (
                     <div className="flex flex-1 items-center justify-center text-center px-8">
                         <p className="text-2xl font-semibold text-gray-600">아직 올라온 질문이 없어요 🥲</p>
                     </div>
 
                 ) : (
-                    // --- 변경점 1 ---
-                    // max-w-4xl mx-auto 클래스를 제거하고 헤더와 동일한 좌우 여백(px-8)을 적용합니다.
                     <div className="px-8">
                         <div className="space-y-8">
                             {qas.map((qa) => (
@@ -134,7 +128,6 @@ export default function LiveProfessor() {
                                         </div>
                                     </div>
 
-                                    {/* Answer */}
                                     {qa.answer && (
                                         <div className="ml-16 pl-4 border-l-2 border-gray-200">
                                             <div className="bg-gray-100 rounded-lg p-5">
@@ -149,11 +142,7 @@ export default function LiveProfessor() {
                 )}
             </main>
 
-            {/* Bottom Input */}
             {selectedQuestionId && (
-                // --- 변경점 2 ---
-                // 하단 입력창의 컨테이너에서도 max-w-4xl mx-auto를 제거하여 전체 너비를 사용하도록 합니다.
-                // 부모에 padding이 있으므로 내부 컨테이너는 필요 없습니다.
                 <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6 px-8"> {/* px-8 추가 */}
                     <div className="flex gap-4">
                         <Input
