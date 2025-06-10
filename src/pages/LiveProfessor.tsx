@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -105,14 +104,24 @@ export default function LiveProfessor() {
                                         <Avatar className="h-12 w-12 bg-gray-300 flex-shrink-0">
                                             <AvatarFallback className="text-base font-medium">{qa.user.slice(-2)}</AvatarFallback>
                                         </Avatar>
-                                        <div className="flex-1 min-w-0">
+                                        <div className="custom-answer-input flex-1 min-w-0">
                                             <div className="flex items-center gap-3 mb-2">
                                                 <span className="font-medium text-gray-900 text-base">{qa.user}</span>
                                                 <span className="text-sm text-gray-500">{qa.timestamp}</span>
                                             </div>
-                                            <Card className="border border-gray-300">
-                                                <CardContent className="p-5">
-                                                    <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">{qa.question}</p>
+                                            <Card className="border border-gray-300 group">
+                                                <CardContent className="p-5 pb-3">
+                                                    <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">
+                                                        {qa.question}
+                                                    </p>
+                                                    <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-pink-100 text-sm">
+                                                            ❤️ 2
+                                                        </button>
+                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-blue-100 text-sm">
+                                                            ❓ 4
+                                                        </button>
+                                                    </div>
                                                 </CardContent>
                                             </Card>
                                             {!qa.answer && (
@@ -143,24 +152,20 @@ export default function LiveProfessor() {
             </main>
 
             {selectedQuestionId && (
-                <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6 px-8"> {/* px-8 추가 */}
+                <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6 px-8">
                     <div className="flex gap-4">
                         <Input
                             value={answerInput}
                             onChange={(e) => setAnswerInput(e.target.value)}
-                            placeholder="선택한 질문에 대한 답변을 입력해주세요"
-                            className="flex-1 rounded-full border-gray-300 px-6 py-4 text-base"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") handleSendAnswer()
-                            }}
+                            placeholder="답변을 입력해주세요"
+                            className="custom-foc flex-1 rounded-full border border-gray-300 px-6 py-4 text-base"
                         />
                         <Button
+                            variant="ghost"
                             onClick={handleSendAnswer}
-                            size="sm"
-                            className="rounded-full px-6 py-4"
                             disabled={!answerInput.trim()}
                         >
-                            <Send className="h-5 w-5" />
+                            <img src="/sendIcon.png" alt="setting" className="h-6 w-6" />
                         </Button>
                     </div>
                 </div>

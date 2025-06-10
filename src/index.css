@@ -72,9 +72,12 @@ h1 {
   line-height: 1.1;
 }
 
-button:hover {
-  border-color: #646cff;
+.custom-foc:focus {
+  border-color: #3B6CFF !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
