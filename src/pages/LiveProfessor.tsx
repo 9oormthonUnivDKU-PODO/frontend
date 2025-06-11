@@ -10,6 +10,11 @@ interface QAItem {
     timestamp: string
     question: string
     answer?: string
+    liked?: boolean
+    likeCount?: number
+    curious?: boolean
+    curiousCount?: number
+
 }
 
 const sampleQAs: QAItem[] = [
@@ -18,19 +23,32 @@ const sampleQAs: QAItem[] = [
         user: "티키 01",
         timestamp: "2025.00.00 오전 00:00",
         question: "안녕하세요 교수님!\n방금 설명에서 예시로 나온 책 제목을 잘 번 더 말씀해 주실 수 있을까요?",
-        answer: "교수님내용교수님내용교수님내용교수님내용교수님내용교수님내용교수님내용교수님내용",
+        answer: "교수님내용...",
+        liked: false,
+        likeCount: 2,
+        curious: false,
+        curiousCount: 4,
     },
+
     {
         id: "2",
         user: "티키 01",
         timestamp: "2025.00.00 오전 00:00",
         question: "책 제목 다시 말씀해 주세요!",
+        liked: false,
+        likeCount: 0,
+        curious: false,
+        curiousCount: 4,
     },
     {
         id: "3",
         user: "티키 01",
         timestamp: "2025.00.00 오전 00:00",
         question: "수업 내용 중 예시 다시 설명해 주세요!",
+        liked: false,
+        likeCount: 0,
+        curious: false,
+        curiousCount: 4,
     },
 ]
 
@@ -49,6 +67,40 @@ export default function LiveProfessor() {
             setShowWithQuestions(true)
         }
     }
+
+    const handleSelectQuestion = (id: string) => {
+        setSelectedQuestionId((prev) => (prev === id ? null : id)) // 토글 형식
+    }
+
+    const handleToggleCurious = (id: string) => {
+        setQAs(prev =>
+            prev.map(qa =>
+                qa.id === id
+                    ? {
+                        ...qa,
+                        curious: !qa.curious,
+                        curiousCount: qa.curious ? (qa.curiousCount || 0) - 1 : (qa.curiousCount || 0) + 1,
+                    }
+                    : qa
+            )
+        )
+    }
+
+
+    const handleToggleLike = (id: string) => {
+        setQAs(prev =>
+            prev.map(qa =>
+                qa.id === id
+                    ? {
+                        ...qa,
+                        liked: !qa.liked,
+                        likeCount: qa.liked ? (qa.likeCount || 0) - 1 : (qa.likeCount || 0) + 1,
+                    }
+                    : qa
+            )
+        )
+    }
+
 
     const handleSendAnswer = () => {
         if (!answerInput.trim() || !selectedQuestionId) return
@@ -109,37 +161,49 @@ export default function LiveProfessor() {
                                                 <span className="font-medium text-gray-900 text-base">{qa.user}</span>
                                                 <span className="text-sm text-gray-500">{qa.timestamp}</span>
                                             </div>
-                                            <Card className="border border-gray-300 group">
+                                            <Card
+                                                className={`group cursor-pointer ${selectedQuestionId === qa.id
+                                                        ? 'border-[#3B6CFF] ring-2 ring-[#3B6CFF]'
+                                                        : 'border border-gray-300'
+                                                    }`}
+                                                onClick={() => handleSelectQuestion(qa.id)}
+                                            >
                                                 <CardContent className="p-5 pb-3">
                                                     <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">
                                                         {qa.question}
                                                     </p>
                                                     <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-pink-100 text-sm">
-                                                            ❤️ 2
+                                                        <button
+                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-blue-100 text-sm"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                handleToggleLike(qa.id)
+                                                            }}
+                                                        >
+                                                            <img src="/likeIcon.png" alt="bell" className="h-6 w-6" />
+                                                            {qa.likeCount ?? 0}
                                                         </button>
-                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-blue-100 text-sm">
-                                                            ❓ 4
+
+                                                        <button
+                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-blue-100 text-sm"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                handleToggleCurious(qa.id)
+                                                            }}
+                                                        >
+                                                            <img src="/wonderIcon.png" alt="curious" className="h-6 w-6" />
+                                                            {qa.curiousCount ?? 0}
                                                         </button>
                                                     </div>
                                                 </CardContent>
                                             </Card>
-                                            {!qa.answer && (
-                                                <Button
-                                                    size="sm"
-                                                    variant="default"
-                                                    className="mt-3 px-4 py-2"
-                                                    onClick={() => setSelectedQuestionId(qa.id)}
-                                                >
-                                                    답변 달기
-                                                </Button>
-                                            )}
+
                                         </div>
                                     </div>
 
-                                    {qa.answer && (
-                                        <div className="ml-16 pl-4 border-l-2 border-gray-200">
-                                            <div className="bg-gray-100 rounded-lg p-5">
+                                    {qa.answer && (//dkdk
+                                        <div className="ml-16 pl-4 border-l-2 bg-white">
+                                            <div className="rounded-lg p-5">
                                                 <p className="text-gray-900 leading-relaxed text-base">{qa.answer}</p>
                                             </div>
                                         </div>
