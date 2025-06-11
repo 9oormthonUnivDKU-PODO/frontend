@@ -172,42 +172,33 @@ export default function LiveProfessor() {
                                                     <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">
                                                         {qa.question}
                                                     </p>
-                                                    <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                                        <button
-                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-blue-100 text-sm"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                handleToggleLike(qa.id)
-                                                            }}
-                                                        >
-                                                            <img src="/likeIcon.png" alt="bell" className="h-6 w-6" />
-                                                            {qa.likeCount ?? 0}
-                                                        </button>
-
-                                                        <button
-                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-blue-100 text-sm"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                handleToggleCurious(qa.id)
-                                                            }}
-                                                        >
-                                                            <img src="/wonderIcon.png" alt="curious" className="h-6 w-6" />
-                                                            {qa.curiousCount ?? 0}
-                                                        </button>
-                                                    </div>
                                                 </CardContent>
                                             </Card>
+                                            <div className="ml-16 mt-2 flex gap-2">
+                                                <div className="ml-16 mt-2 flex gap-2">
+                                                    <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 text-sm">
+                                                        <img src="/likeIcon.png" alt="like" className="h-6 w-6" />
+                                                        {qa.likeCount ?? 0}
+                                                    </div>
 
+                                                    <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 text-sm">
+                                                        <img src="/wonderIcon.png" alt="curious" className="h-6 w-6" />
+                                                        {qa.curiousCount ?? 0}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            {/* 답변이 있을 경우 출력 */}
+                                            {qa.answer && (
+                                                <div className="ml-16 pl-4 border-l-2 bg-white">
+                                                    <div className="rounded-lg p-5">
+                                                        <p className="text-gray-900 leading-relaxed text-base">{qa.answer}</p>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-
-                                    {qa.answer && (//dkdk
-                                        <div className="ml-16 pl-4 border-l-2 bg-white">
-                                            <div className="rounded-lg p-5">
-                                                <p className="text-gray-900 leading-relaxed text-base">{qa.answer}</p>
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             ))}
                         </div>
