@@ -163,8 +163,8 @@ export default function LiveProfessor() {
                                             </div>
                                             <Card
                                                 className={`group cursor-pointer ${selectedQuestionId === qa.id
-                                                        ? 'border-[#3B6CFF] ring-2 ring-[#3B6CFF]'
-                                                        : 'border border-gray-300'
+                                                    ? 'border-[#3B6CFF] ring-1 ring-[#3B6CFF]'
+                                                    : 'border border-gray-300'
                                                     }`}
                                                 onClick={() => handleSelectQuestion(qa.id)}
                                             >
