@@ -72,36 +72,6 @@ export default function LiveProfessor() {
         setSelectedQuestionId((prev) => (prev === id ? null : id)) // 토글 형식
     }
 
-    const handleToggleCurious = (id: string) => {
-        setQAs(prev =>
-            prev.map(qa =>
-                qa.id === id
-                    ? {
-                        ...qa,
-                        curious: !qa.curious,
-                        curiousCount: qa.curious ? (qa.curiousCount || 0) - 1 : (qa.curiousCount || 0) + 1,
-                    }
-                    : qa
-            )
-        )
-    }
-
-
-    const handleToggleLike = (id: string) => {
-        setQAs(prev =>
-            prev.map(qa =>
-                qa.id === id
-                    ? {
-                        ...qa,
-                        liked: !qa.liked,
-                        likeCount: qa.liked ? (qa.likeCount || 0) - 1 : (qa.likeCount || 0) + 1,
-                    }
-                    : qa
-            )
-        )
-    }
-
-
     const handleSendAnswer = () => {
         if (!answerInput.trim() || !selectedQuestionId) return
 
