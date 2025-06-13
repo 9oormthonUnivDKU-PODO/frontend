@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
+import Header from "@/components/Header"
 
 interface QAItem {
     id: string
@@ -82,28 +83,7 @@ export default function LiveProfessor() {
 
     return (
         <div className="absolute top-0 left-0 w-full min-h-screen flex flex-col bg-[#F2F6F9]">
-            <header className="bg-[#F2F6F9] px-8 py-4 w-full">
-                <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-2">
-                        <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-                    </div>
-
-                    <div className="flex items-center gap-1">
-                        <Button variant="ghost" size="icon">
-                            <img src="/bellIcon.png" alt="bell" className="h-6 w-6" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                            <img src="/settingIcon.png" alt="setting" className="h-6 w-6" />
-                        </Button>
-                        <Button variant="ghost" className="p-3 h-auto">
-                            <img src="/logoutIcon.png" alt="logout" className="h-8 w-auto" />
-                        </Button>
-                    </div>
-
-                </div>
-            </header>
-
-
+            <Header />
             <div className="w-full px-8 py-6">
                 <Button onClick={handleToggleView} className="mb-4 px-6 py-2 text-base">
                     {showWithQuestions ? "질문 없는 상태 보기" : "질문 있는 상태 보기"}
