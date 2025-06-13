@@ -11,11 +11,10 @@ interface QAItem {
     timestamp: string
     question: string
     answer?: string
-    liked?: boolean
     likeCount?: number
-    curious?: boolean
     curiousCount?: number
-
+    awarded?: boolean
+    flaged?: boolean
 }
 
 const sampleQAs: QAItem[] = [
@@ -25,10 +24,10 @@ const sampleQAs: QAItem[] = [
         timestamp: "2025.00.00 오전 00:00",
         question: "안녕하세요 교수님!\n방금 설명에서 예시로 나온 책 제목을 잘 번 더 말씀해 주실 수 있을까요?",
         answer: "교수님내용...",
-        liked: false,
         likeCount: 2,
-        curious: false,
         curiousCount: 4,
+        awarded: false,
+        flaged: false,
     },
 
     {
@@ -36,20 +35,20 @@ const sampleQAs: QAItem[] = [
         user: "티키 01",
         timestamp: "2025.00.00 오전 00:00",
         question: "책 제목 다시 말씀해 주세요!",
-        liked: false,
         likeCount: 0,
-        curious: false,
         curiousCount: 4,
+        awarded: false,
+        flaged: false,
     },
     {
         id: "3",
         user: "티키 01",
         timestamp: "2025.00.00 오전 00:00",
         question: "수업 내용 중 예시 다시 설명해 주세요!",
-        liked: false,
         likeCount: 0,
-        curious: false,
         curiousCount: 4,
+        awarded: false,
+        flaged: false,
     },
 ]
 
@@ -79,6 +78,22 @@ export default function LiveProfessor() {
         setQAs((prev) => prev.map((qa) => (qa.id === selectedQuestionId ? { ...qa, answer: answerInput } : qa)))
         setAnswerInput("")
         setSelectedQuestionId(null)
+    }
+
+    const handleToggleAward = (id: string) => {
+        setQAs((prev) =>
+            prev.map((qa) =>
+                qa.id === id ? { ...qa, awarded: !qa.awarded } : qa
+            )
+        )
+    }
+
+    const handleToggleFlag = (id: string) => {
+        setQAs((prev) =>
+            prev.map((qa) =>
+                qa.id === id ? { ...qa, flaged: !qa.flaged } : qa
+            )
+        )
     }
 
     return (
@@ -122,6 +137,31 @@ export default function LiveProfessor() {
                                                     <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">
                                                         {qa.question}
                                                     </p>
+                                                    <div className="hidden group-hover:flex gap-2">
+                                                        <button
+                                                            onClick={() => handleToggleAward(qa.id)}
+                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-gray-300 text-sm"
+                                                        >
+                                                            <img
+                                                                src={qa.awarded ? "/checkAwardIcon.png" : "/normalAwardIcon.png"}
+                                                                alt="award"
+                                                                className="h-6 w-6"
+                                                            />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleToggleFlag(qa.id)}
+                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-gray-300 text-sm"
+                                                        >
+                                                            <img
+                                                                src={qa.flaged ? "/checkFlagIcon.png" : "/normalFlagIcon.png"}
+                                                                alt="flag"
+                                                                className="h-6 w-6"
+                                                            />
+                                                        </button>
+                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-gray-300 text-sm">
+                                                            답변 완료
+                                                        </button>
+                                                    </div>
                                                 </CardContent>
                                             </Card>
                                             <div className="ml-16 mt-2 flex gap-2">
