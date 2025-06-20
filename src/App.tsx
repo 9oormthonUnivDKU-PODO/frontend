@@ -1,16 +1,12 @@
-import { Routes, Route } from "react-router-dom";
-import ListProfessor from "./pages/ListProfessor";
-import LiveProfessor from "./pages/LiveProfessor";
+import React from "react";
+import LoadingPage from "./components/LoadingPage";
 
-function App() {
-	return (
-		<>
-			<Routes>
-				<Route path="/listp" element={<ListProfessor />} />
-				<Route path="/livep" element={<LiveProfessor />} />
-			</Routes>
-		</>
-	);
-}
+const App = () => {
+  return (
+    <div className="w-full h-full">
+      <LoadingPage />
+    </div>
+  );
+};
 
 export default App;
