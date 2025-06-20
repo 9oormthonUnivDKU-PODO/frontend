@@ -116,7 +116,6 @@ export default function LiveProfessor() {
                         <div className="space-y-8">
                             {qas.map((qa) => (
                                 <div key={qa.id} className="space-y-4">
-                                    {/* Question */}
                                     <div className="flex gap-4">
                                         <Avatar className="h-12 w-12 bg-gray-300 flex-shrink-0">
                                             <AvatarFallback className="text-base font-medium">{qa.user.slice(-2)}</AvatarFallback>
@@ -140,7 +139,7 @@ export default function LiveProfessor() {
                                                     <div className="hidden group-hover:flex gap-2">
                                                         <button
                                                             onClick={() => handleToggleAward(qa.id)}
-                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-gray-300 text-sm"
+                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 shadow-sm hover:bg-gray-200 text-sm"
                                                         >
                                                             <img
                                                                 src={qa.awarded ? "/checkAwardIcon.png" : "/normalAwardIcon.png"}
@@ -150,7 +149,7 @@ export default function LiveProfessor() {
                                                         </button>
                                                         <button
                                                             onClick={() => handleToggleFlag(qa.id)}
-                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-gray-300 text-sm"
+                                                            className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 shadow-sm hover:bg-gray-200 text-sm"
                                                         >
                                                             <img
                                                                 src={qa.flaged ? "/checkFlagIcon.png" : "/normalFlagIcon.png"}
@@ -158,7 +157,7 @@ export default function LiveProfessor() {
                                                                 className="h-6 w-6"
                                                             />
                                                         </button>
-                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-300 shadow-sm hover:bg-gray-300 text-sm">
+                                                        <button className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 shadow-sm hover:bg-gray-200 text-sm">
                                                             답변 완료
                                                         </button>
                                                     </div>
@@ -176,12 +175,9 @@ export default function LiveProfessor() {
                                                         {qa.curiousCount ?? 0}
                                                     </div>
                                                 </div>
-
                                             </div>
-
-                                            {/* 답변이 있을 경우 출력 */}
                                             {qa.answer && (
-                                                <div className="ml-16 pl-4 border-l-2 bg-white">
+                                                <div className="ml-16 pl-4 rounded-md border-l-2 bg-white">
                                                     <div className="rounded-lg p-5">
                                                         <p className="text-gray-900 leading-relaxed text-base">{qa.answer}</p>
                                                     </div>
