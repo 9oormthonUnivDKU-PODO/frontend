@@ -1,7 +1,8 @@
-import { Bell, ChevronDown, ChevronRight, FilePenLine, Flag, LogOut, MessageSquareQuote, Settings, X } from "lucide-react";
+import { Bell, ChevronDown, ChevronRight, FilePenLine, LogOut, MessageSquareQuote, Settings, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import ReportGuide from "@/components/ReportGuide"
 
 type QuestionStatus = "전체" | "미응답" | "응답 완료";
 
@@ -43,7 +44,6 @@ export function QAProfessor() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
-    const [reportReason, setReportReason] = useState("");
 
     const handleCheckboxChange = (questionId: number) => {
         setSelectedQuestionIds((prev) =>
@@ -229,61 +229,17 @@ export function QAProfessor() {
                 </div>
             )}
 
-            {isReportModalOpen && (
-                <div 
-                    className="fixed inset-0 bg-[#000000]/50 flex justify-center items-center z-50"
-                    onClick={() => setIsReportModalOpen(false)}
-                >
-                    <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg" onClick={e => e.stopPropagation()}>
-                        <div className="flex justify-between items-start">
-                            <div className="flex items-center gap-3">
-                                <Flag className="w-6 h-6 text-gray-800" />
-                                <h2 className="text-xl font-bold text-gray-900">신고하기</h2>
-                            </div>
-                            <button onClick={() => setIsReportModalOpen(false)} className="text-gray-400 hover:text-gray-600">
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-
-                        <div className="border-t my-4"></div>
-                        
-                        <div className="text-sm text-gray-800 bg-gray-50 p-3 rounded-md mb-4">
-                            <span className="font-semibold">내용:</span> {selectedQuestionsContent[0]?.content.replace('질문 내용: ', '')}
-                        </div>
-                        
-                        <div className="space-y-3">
-                            <h3 className="font-semibold text-gray-800">사유선택</h3>
-                            {reportReasons.map((reason, index) => (
-                                <div key={index} className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        id={`reason-${index}`}
-                                        name="reportReason"
-                                        value={reason}
-                                        checked={reportReason === reason}
-                                        onChange={(e) => setReportReason(e.target.value)}
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                                    />
-                                    <label htmlFor={`reason-${index}`} className="ml-3 block text-sm text-gray-700">
-                                        {reason}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="mt-8">
-                           <Button 
-                                size="lg" 
-                                className="w-full bg-[#3B6CFF] hover:bg-[#3B6CFF]/90"
-                                onClick={() => setIsReportModalOpen(false)}
-                                disabled={!reportReason}
-                            >
-                                신고하기
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            )}
+                    <ReportGuide
+                        open={isReportModalOpen}
+                        onClose={() => setIsReportModalOpen(false)}
+                        questionContent={selectedQuestionsContent[0]?.content ?? ""}
+                        reasons={reportReasons}
+                        onSubmit={(reason) => {
+                            // TODO: 여기에 신고 처리 로직 추가
+                            console.log("신고된 사유:", reason);
+                            setIsReportModalOpen(false);
+                        }}
+                    />
 
             <button className="fixed bottom-8 right-8 bg-[#3B6CFF] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
                 <MessageSquareQuote className="w-8 h-8" />
