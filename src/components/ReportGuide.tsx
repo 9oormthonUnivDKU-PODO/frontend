@@ -17,9 +17,6 @@ const reasons = [
 interface ReportModalProps {
     open: boolean
     onClose: () => void
-    questionContent: string;
-    reasons: string[]
-    onSubmit: (reason: string) => void;
 }
 
 export default function ReportGuide({ open, onClose }: ReportModalProps) {

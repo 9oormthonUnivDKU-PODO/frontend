@@ -1,8 +1,9 @@
-import { Bell, ChevronDown, ChevronRight, FilePenLine, LogOut, MessageSquareQuote, Settings, X } from "lucide-react";
+import { Bell, ChevronDown, ChevronRight, LogOut, MessageSquareQuote, Settings } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ReportGuide from "@/components/ReportGuide"
+import ReplyGuide from "@/components/ReplyGuide";
 
 type QuestionStatus = "전체" | "미응답" | "응답 완료";
 
@@ -41,8 +42,8 @@ const questions = [
 
 export function QAProfessor() {
     const [filter, setFilter] = useState<QuestionStatus>("전체");
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const [replyModalOpen, setReplyModalOpen] = useState(false);
+    const [reportModalOpen, setReportModalOpen] = useState(false)
     const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
 
     const handleCheckboxChange = (questionId: number) => {
@@ -57,18 +58,6 @@ export function QAProfessor() {
         filter === "전체"
             ? questions
             : questions.filter((q) => q.status === filter);
-    
-    const selectedQuestionsContent = questions.filter(q => selectedQuestionIds.includes(q.id));
-
-    const reportReasons = [
-        "스팸홍보/도배입니다.",
-        "음란물입니다.",
-        "불법정보를 포함하고 있습니다.",
-        "욕설/생명경시/혐오/차별적 표현입니다.",
-        "개인정보가 노출되었습니다.",
-        "명예훼손 또는 불쾌한 표현이 있습니다.",
-        "기타",
-    ];
 
     return (
         <div className="min-h-screen bg-[#F2F6F9]">
@@ -111,7 +100,7 @@ export function QAProfessor() {
                         <div className="flex items-center gap-4 text-sm text-gray-500">
                             <button 
                                 onClick={() => {
-                                    if (selectedQuestionIds.length > 0) setIsModalOpen(true);
+                                    if (selectedQuestionIds.length > 0) setReplyModalOpen(true);
                                 }}
                                 disabled={selectedQuestionIds.length === 0}
                                 className="hover:text-gray-800 disabled:text-gray-400"
@@ -120,7 +109,7 @@ export function QAProfessor() {
                             </button>
                             <button 
                                 onClick={() => {
-                                    if (selectedQuestionIds.length > 0) setIsReportModalOpen(true);
+                                    if (selectedQuestionIds.length > 0) setReportModalOpen(true);
                                 }}
                                 disabled={selectedQuestionIds.length === 0}
                                 className="hover:text-gray-800 disabled:text-gray-400 disabled:cursor-not-allowed"
@@ -195,51 +184,8 @@ export function QAProfessor() {
                 </div>
             </footer>
             
-            {isModalOpen && (
-                <div 
-                    className="fixed inset-0 bg-[#000000]/50 flex justify-center items-center z-50"
-                    onClick={() => setIsModalOpen(false)}
-                >
-                    <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl" onClick={e => e.stopPropagation()}>
-                        <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <FilePenLine className="w-6 h-6 text-gray-800" />
-                                <h2 className="text-xl font-bold text-gray-900">일괄 응답</h2>
-                            </div>
-                            <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-                        
-                        <div className="border-t my-6"></div>
-
-                        <p className="text-sm text-gray-600 mb-4">
-                            일괄 응답 질문 수: <span className="font-bold text-[#3B6CFF]">{selectedQuestionIds.length}</span>개
-                        </p>
-
-                        <div className="h-60 overflow-y-auto bg-gray-50 rounded-lg p-4 border space-y-3 text-sm text-gray-700">
-                            {selectedQuestionsContent.map(q => <p key={q.id}>{q.content}</p>)}
-                        </div>
-
-                        <div className="flex justify-end gap-4 mt-8">
-                            <Button variant="outline" size="lg" className="border-gray-300 text-gray-700 px-6">AI 응답</Button>
-                            <Button size="lg" className="bg-[#3B6CFF] hover:bg-[#3B6CFF]/90 px-6" onClick={() => setIsModalOpen(false)}>작성 완료</Button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-                    <ReportGuide
-                        open={isReportModalOpen}
-                        onClose={() => setIsReportModalOpen(false)}
-                        questionContent={selectedQuestionsContent[0]?.content ?? ""}
-                        reasons={reportReasons}
-                        onSubmit={(reason) => {
-                            // TODO: 여기에 신고 처리 로직 추가
-                            console.log("신고된 사유:", reason);
-                            setIsReportModalOpen(false);
-                        }}
-                    />
+            <ReplyGuide open={replyModalOpen} onClose={() => setReplyModalOpen(false)} />
+            <ReportGuide open={reportModalOpen} onClose={() => setReportModalOpen(false)} />
 
             <button className="fixed bottom-8 right-8 bg-[#3B6CFF] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
                 <MessageSquareQuote className="w-8 h-8" />
