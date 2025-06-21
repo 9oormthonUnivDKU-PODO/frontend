@@ -29,7 +29,6 @@ const sampleQAs: QAItem[] = [
         awarded: false,
         flaged: false,
     },
-
     {
         id: "2",
         user: "티키 01",
@@ -59,41 +58,27 @@ export default function LiveProfessor() {
     const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(null)
 
     const handleToggleView = () => {
-        if (showWithQuestions) {
-            setQAs([])
-            setShowWithQuestions(false)
-        } else {
-            setQAs(sampleQAs)
-            setShowWithQuestions(true)
-        }
+        setShowWithQuestions(!showWithQuestions)
+        setQAs(!showWithQuestions ? sampleQAs : [])
     }
 
     const handleSelectQuestion = (id: string) => {
-        setSelectedQuestionId((prev) => (prev === id ? null : id)) // 토글 형식
+        setSelectedQuestionId((prev) => (prev === id ? null : id))
     }
 
     const handleSendAnswer = () => {
         if (!answerInput.trim() || !selectedQuestionId) return
-
         setQAs((prev) => prev.map((qa) => (qa.id === selectedQuestionId ? { ...qa, answer: answerInput } : qa)))
         setAnswerInput("")
         setSelectedQuestionId(null)
     }
 
     const handleToggleAward = (id: string) => {
-        setQAs((prev) =>
-            prev.map((qa) =>
-                qa.id === id ? { ...qa, awarded: !qa.awarded } : qa
-            )
-        )
+        setQAs((prev) => prev.map((qa) => (qa.id === id ? { ...qa, awarded: !qa.awarded } : qa)))
     }
 
     const handleToggleFlag = (id: string) => {
-        setQAs((prev) =>
-            prev.map((qa) =>
-                qa.id === id ? { ...qa, flaged: !qa.flaged } : qa
-            )
-        )
+        setQAs((prev) => prev.map((qa) => (qa.id === id ? { ...qa, flaged: !qa.flaged } : qa)))
     }
 
     return (
@@ -110,7 +95,6 @@ export default function LiveProfessor() {
                     <div className="flex flex-1 items-center justify-center text-center px-8">
                         <p className="text-2xl font-semibold text-gray-600">아직 올라온 질문이 없어요 🥲</p>
                     </div>
-
                 ) : (
                     <div className="px-8">
                         <div className="space-y-8">
@@ -120,23 +104,16 @@ export default function LiveProfessor() {
                                         <Avatar className="h-12 w-12 bg-gray-300 flex-shrink-0">
                                             <AvatarFallback className="text-base font-medium">{qa.user.slice(-2)}</AvatarFallback>
                                         </Avatar>
-                                        <div className="custom-answer-input flex-1 min-w-0">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <span className="font-medium text-gray-900 text-base">{qa.user}</span>
-                                                <span className="text-sm text-gray-500">{qa.timestamp}</span>
-                                            </div>
+                                        <div className="flex-1 min-w-0">
                                             <Card
-                                                className={`group cursor-pointer ${selectedQuestionId === qa.id
-                                                    ? 'border-[#3B6CFF] ring-1 ring-[#3B6CFF]'
-                                                    : 'border border-gray-300'
+                                                className={`group cursor-pointer border-none shadow-none rounded-tl-none ${selectedQuestionId === qa.id ? "ring-1 ring-[#3B6CFF]" : ""
                                                     }`}
                                                 onClick={() => handleSelectQuestion(qa.id)}
                                             >
                                                 <CardContent className="p-5 pb-3">
-                                                    <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">
-                                                        {qa.question}
-                                                    </p>
-                                                    <div className="hidden group-hover:flex gap-2">
+                                                    <p className="text-gray-900 whitespace-pre-line text-base leading-relaxed">{qa.question}</p>
+                                                    <span className="text-sm text-gray-500 mt-2 block">{qa.timestamp}</span>
+                                                    <div className="hidden group-hover:flex gap-2 mt-3">
                                                         <button
                                                             onClick={() => handleToggleAward(qa.id)}
                                                             className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 shadow-sm hover:bg-gray-200 text-sm"
@@ -163,22 +140,23 @@ export default function LiveProfessor() {
                                                     </div>
                                                 </CardContent>
                                             </Card>
-                                            <div className="ml-16 mt-2 flex gap-2">
-                                                <div className="ml-16 mt-2 flex gap-2">
-                                                    <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 text-sm">
-                                                        <img src="/likeIcon.png" alt="like" className="h-6 w-6" />
-                                                        {qa.likeCount ?? 0}
-                                                    </div>
-
-                                                    <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 text-sm">
-                                                        <img src="/wonderIcon.png" alt="curious" className="h-6 w-6" />
-                                                        {qa.curiousCount ?? 0}
-                                                    </div>
+                                            <div className="mt-2 flex gap-2">
+                                                <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 text-sm">
+                                                    <img src="/likeIcon.png" alt="like" className="h-6 w-6" />
+                                                    {qa.likeCount ?? 0}
+                                                </div>
+                                                <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-white border border-gray-200 text-sm">
+                                                    <img src="/wonderIcon.png" alt="curious" className="h-6 w-6" />
+                                                    {qa.curiousCount ?? 0}
                                                 </div>
                                             </div>
                                             {qa.answer && (
-                                                <div className="ml-16 pl-4 rounded-md border-l-2 bg-white">
-                                                    <div className="rounded-lg p-5">
+                                                <div className="relative mt-4">
+                                                    <div className="absolute left-1 top-0 w-5 h-7">
+                                                        <div className="absolute left-0 top-0 w-px h-7 bg-gray-400"></div>
+                                                        <div className="absolute left-0 bottom-0 w-5 h-px bg-gray-400"></div>
+                                                    </div>
+                                                    <div className="ml-6 bg-white rounded-lg p-5 border border-gray-200">
                                                         <p className="text-gray-900 leading-relaxed text-base">{qa.answer}</p>
                                                     </div>
                                                 </div>
@@ -199,14 +177,10 @@ export default function LiveProfessor() {
                             value={answerInput}
                             onChange={(e) => setAnswerInput(e.target.value)}
                             placeholder="답변을 입력해주세요"
-                            className="custom-foc flex-1 rounded-full border border-gray-300 px-6 py-4 text-base"
+                            className="flex-1 rounded-full border border-gray-300 px-6 py-4 text-base"
                         />
-                        <Button
-                            variant="ghost"
-                            onClick={handleSendAnswer}
-                            disabled={!answerInput.trim()}
-                        >
-                            <img src="/sendIcon.png" alt="setting" className="h-6 w-6" />
+                        <Button variant="ghost" onClick={handleSendAnswer} disabled={!answerInput.trim()}>
+                            <img src="/sendIcon.png" alt="send" className="h-6 w-6" />
                         </Button>
                     </div>
                 </div>
