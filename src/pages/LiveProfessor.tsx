@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
 import Header from "@/components/Header"
+import ReportGuide from "@/components/ReportGuide"
 
 interface QAItem {
     id: string
@@ -56,6 +57,7 @@ export default function LiveProfessor() {
     const [showWithQuestions, setShowWithQuestions] = useState(false)
     const [answerInput, setAnswerInput] = useState("")
     const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(null)
+    const [reportModalOpen, setReportModalOpen] = useState(false)
 
     const handleToggleView = () => {
         setShowWithQuestions(!showWithQuestions)
@@ -78,7 +80,10 @@ export default function LiveProfessor() {
     }
 
     const handleToggleFlag = (id: string) => {
-        setQAs((prev) => prev.map((qa) => (qa.id === id ? { ...qa, flaged: !qa.flaged } : qa)))
+        setQAs((prev) =>
+            prev.map((qa) => (qa.id === id ? { ...qa, flaged: !qa.flaged } : qa))
+        )
+        setReportModalOpen(true)
     }
 
     return (
@@ -169,6 +174,7 @@ export default function LiveProfessor() {
                     </div>
                 )}
             </main>
+            <ReportGuide open={reportModalOpen} onClose={() => setReportModalOpen(false)} />
 
             {selectedQuestionId && (
                 <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6 px-8">
