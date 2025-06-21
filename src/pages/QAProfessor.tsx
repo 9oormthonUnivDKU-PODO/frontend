@@ -8,7 +8,7 @@ type QuestionStatus = "전체" | "미응답" | "응답 완료";
 const questions = [
     {
         id: 1,
-        content: "질문 내용: 질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용...",
+        content: "질문 내용: 질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용질문내용...",
         date: "2025.00.00",
         status: "미응답",
     },
@@ -197,7 +197,7 @@ export function QAProfessor() {
             
             {isModalOpen && (
                 <div 
-                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                    className="fixed inset-0 bg-[#000000]/50 flex justify-center items-center z-50"
                     onClick={() => setIsModalOpen(false)}
                 >
                     <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl" onClick={e => e.stopPropagation()}>
@@ -231,7 +231,7 @@ export function QAProfessor() {
 
             {isReportModalOpen && (
                 <div 
-                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                    className="fixed inset-0 bg-[#000000]/50 flex justify-center items-center z-50"
                     onClick={() => setIsReportModalOpen(false)}
                 >
                     <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg" onClick={e => e.stopPropagation()}>
