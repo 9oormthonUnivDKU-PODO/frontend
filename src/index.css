@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+@keyframes orbit {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg) translateX(14px) rotate(0deg);
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg) translateX(14px) rotate(-360deg);
+  }
+}
+
+.dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #191A1C;
+  border-radius: 9999px;
+  top: 90%;
+  left: 50%;
+  transform-origin: center;
+}
+
+@keyframes dot-fade {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(20px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(20px) rotate(-360deg);
+  }
+}
+
+
+
+
