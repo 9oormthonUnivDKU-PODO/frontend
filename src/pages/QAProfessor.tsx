@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ReportGuide from "@/components/ReportGuide"
 import ReplyGuide from "@/components/ReplyGuide";
+import Footer from "@/components/Footer"
 
 type QuestionStatus = "전체" | "미응답" | "응답 완료";
 
@@ -168,28 +169,14 @@ export function QAProfessor() {
                     </div>
                 </div>
             </div>
-
-            <footer className="bg-white mt-16">
-                <div className="container mx-auto px-8 py-6 flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2">
-                         <img src="/logo.png" alt="Logo" className="h-6 w-auto" />
-                         <span className="text-gray-500">© 2025 티키타카</span>
-                    </div>
-                    <div className="flex gap-6 text-gray-500">
-                        <a href="#" className="hover:text-gray-800">이용안내</a>
-                        <a href="#" className="hover:text-gray-800">문의하기</a>
-                        <a href="#" className="hover:text-gray-800">개인정보처리방침</a>
-                        <a href="#" className="hover:text-gray-800">관리자</a>
-                    </div>
-                </div>
-            </footer>
             
             <ReplyGuide open={replyModalOpen} onClose={() => setReplyModalOpen(false)} />
             <ReportGuide open={reportModalOpen} onClose={() => setReportModalOpen(false)} />
 
-            <button className="fixed bottom-8 right-8 bg-[#3B6CFF] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
-                <MessageSquareQuote className="w-8 h-8" />
-            </button>
+                <button className="fixed bottom-8 right-8 bg-[#3B6CFF] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                    <MessageSquareQuote className="w-8 h-8" />
+                </button>
+            <Footer />
         </div>
     );
 }
