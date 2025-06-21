@@ -169,13 +169,10 @@ export function QAProfessor() {
                     </div>
                 </div>
             </div>
-            
+
             <ReplyGuide open={replyModalOpen} onClose={() => setReplyModalOpen(false)} />
             <ReportGuide open={reportModalOpen} onClose={() => setReportModalOpen(false)} />
 
-                <button className="fixed bottom-8 right-8 bg-[#3B6CFF] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
-                    <MessageSquareQuote className="w-8 h-8" />
-                </button>
             <Footer />
         </div>
     );
